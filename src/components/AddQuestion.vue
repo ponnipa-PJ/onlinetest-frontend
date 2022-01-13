@@ -2,45 +2,56 @@
   <div>
     <h4>Add Test</h4>
     <div class="container">
-      <div class="form-group" v-for="(input, k) in inputs" :key="k">
-        <input
-          type="text"
-          class="form-control"
-          v-model="input.name"
-          placeholder="Question"
-        />
-        <input
-          type="text"
-          class="form-control"
-          v-model="input.party"
-          placeholder="Description"
-        />        
-              <br />
-      <input type="checkbox" id="" value="" v-model="checkedNames" />
-      <label for=""><input type="text" class="form-control" /></label><br />
-      <input type="checkbox" id="" value="" v-model="checkedNames" />
-      <label for=""><input type="text" class="form-control" /></label><br />
-      <input type="checkbox" id="" value="" v-model="checkedNames" />
-      <label for=""><input type="text" class="form-control" /></label>
-      <br />
-      <!-- <span>Checked names: {{ checkedNames }}</span -->
-
-      <span>
-          <i
-            class="fas fa-minus-circle"
-            @click="remove(k)"
-            v-show="k || (!k && inputs.length > 1)"
-            >Remove</i
-          >
-          <i
-            class="fas fa-plus-circle"
-            @click="add(k)"
-            v-show="k == inputs.length - 1"
-            >Add fields</i
-          >
-        </span>
+      <select class="form-select mb-3" aria-label="Default select example">
+        <option selected>Subject</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+      <select class="form-select mb-3" aria-label="Default select example">
+        <option selected>Part</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Question</span>
+        <input type="text" v-model="question" aria-label="question" class="form-control" />
       </div>
-      <button @click="addQuestion">Submit</button>
+      <div v-for="(input, k) in checkbox" :key="k">
+        <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <input type="checkbox"
+                          value="input.check"
+              v-model="input.check">
+                        </span>
+                      </div>
+                      <input type="text" v-model="input.name" class="form-control">
+                    </div>
+
+        <div class="input-group mb-3">
+          <div style="cursor: pointer">
+            <i
+              class="form-control bi bi-dash-circle"
+              @click="remove(k)"
+              v-show="k || (!k && checkbox.length > 1)"
+            ></i>
+          </div>
+          <button
+          type="button"
+          style="cursor: pointer"
+          class="btn btn-outline-secondary"
+          @click="add(k)"
+            v-show="k == checkbox.length - 1"
+        >
+          <i
+            class="bi bi-plus-circle"            
+          ></i>
+        </button>
+        </div>        
+      </div>
+      <button type="button" class="btn btn-success" @click="save()">Save</button>
     </div>
   </div>
 </template>
@@ -55,10 +66,11 @@ export default {
     return {
       currentQuestions: [],
       checkedNames: [],
-      inputs: [
+      question:'',
+      checkbox: [
         {
           name: "",
-          party: "",
+          check: false,
         },
       ],
     };
@@ -76,19 +88,21 @@ export default {
         });
     },
     add() {
-      this.inputs.push({
+      this.checkbox.push({
         name: "",
         party: "",
       });
-      console.log(this.inputs);
+      console.log(this.checkbox);
     },
 
     remove(index) {
-      this.inputs.splice(index, 1);
+      console.log(index);
+      this.checkbox.splice(index, 1);
     },
 
-    addQuestion() {
-      console.log(this.inputs);
+    save() {
+      console.log(this.checkbox);
+      console.log(this.question);
     },
   },
   mounted() {

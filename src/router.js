@@ -24,5 +24,17 @@ export default new Router({
       name: "add",
       component: () => import("./components/AddQuestion")
     },
+    {
+      path: "/subjects",
+      alias: "/subjects",
+      name: "subjects",
+      component: () => import("./components/Subjects")
+    },
+    {
+      path: "/parts/:id",
+      alias: "/parts",
+      name: "parts",
+      component: () => import("./components/Parts")
+    },
   ]
 });
