@@ -8,6 +8,12 @@ export default new Router({
   routes: [
     {
       path: "/",
+      alias: "/home",
+      name: "home",
+      component: () => import("./components/Home")
+    },
+    {
+      path: "/testpage",
       alias: "/testpage",
       name: "testpage",
       component: () => import("./components/TestPage")
@@ -31,10 +37,22 @@ export default new Router({
       component: () => import("./components/Subjects")
     },
     {
+      path: "/subject/:id",
+      alias: "/subject",
+      name: "subject",
+      component: () => import("./components/Subject")
+    },
+    {
       path: "/parts/:id",
       alias: "/parts",
       name: "parts",
       component: () => import("./components/Parts")
+    },
+    {
+      path: "/tests/:id",
+      alias: "/tests",
+      name: "tests",
+      component: () => import("./components/Tests")
     },
   ]
 });

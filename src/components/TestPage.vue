@@ -38,7 +38,6 @@ import AnswersDataService from "../services/AnswersDataService";
 export default {
   name: "testpage",
   components: {},
-  selected: "1",
   data() {
     return {
       currentQuestions: [],

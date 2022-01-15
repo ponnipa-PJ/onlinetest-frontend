@@ -10,17 +10,19 @@
           <div class="card-body">
             <div class="row" v-if="currentParts">
               <div class="col-sm-4 mb-3" 
-              v-for="(subject, index) in currentParts"
+              v-for="(part, index) in currentParts"
               :key="index">
+              <a class="m-3 btn btn-sm btn-warning" :href="'/tests/' + part.id">
                 <div
                   class="position-relative p-3 bg-gray"
                   style="height: 180px"
                 >
-                  {{subject.name}} <br />
-                  {{subject.score}} scores <br />
-                  {{subject.date}} <br />
-                  {{subject.time}} <br />
+                  {{part.name}} <br />
+                  {{part.score}} scores <br />
+                  {{part.date}} <br />
+                  {{part.time}} <br />
                 </div>
+              </a>
               </div>
             </div>
           </div>
@@ -39,7 +41,6 @@ import PartsDataService from "../services/PartsDataService";
 export default {
   name: "testpage",
   components: {},
-  selected: "1",
   data() {
     return {
       currentParts: [],

@@ -45,8 +45,8 @@ export default {
   },
   computed: {},
   methods: {
-    getAnswer() {
-      AnswersDataService.getquestionsandanswers()
+    getAnswer(id) {
+      AnswersDataService.getquestionsandanswersadmin(id,1)
         .then((response) => {
           this.currentQuestions = response.data;
           console.log(response.data);
@@ -63,7 +63,7 @@ export default {
     },
   },
   mounted() {
-    this.getAnswer();
+    this.getAnswer(this.$route.params.id);
   },
 };
 </script>

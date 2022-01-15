@@ -42,7 +42,6 @@ import SubjectsDataService from "../services/SubjectsDataService";
 export default {
   name: "testpage",
   components: {},
-  selected: "1",
   data() {
     return {
       currentSubjects: [],
