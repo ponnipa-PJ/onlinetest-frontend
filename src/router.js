@@ -17,18 +17,11 @@ export default new Router({
       alias: "/login",
       name: "login",
       component: () => import("./components/Login"),
-      meta:{
-        guest:true
-      }
     },
     {
       path: '/admin',
       name: 'admin',
       component: () => import("./components/Admin"),
-      meta: {
-        requiresAuth: true,
-        is_admin : true
-      }
     },
     {
       path: "/testpage",

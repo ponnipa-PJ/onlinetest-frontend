@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 import { BootstrapVue } from 'bootstrap-vue'
 import VueSweetalert2 from 'vue-sweetalert2';
-import Vuex from 'vuex';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -23,7 +22,6 @@ require('../src/plugins/summernote/summernote-bs4.min.css')
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueSweetalert2);
-Vue.use(Vuex);
 
 new Vue({
   router,
