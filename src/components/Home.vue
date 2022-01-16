@@ -25,9 +25,6 @@
                       <th style="width: 20%">
                           ผู้สอน
                       </th>
-                      <th tyle="width: 20%">
-                          สถานะ
-                      </th>
                       <th style="width: 20%">
                       </th>
                   </tr>
@@ -48,14 +45,11 @@
                               </li>
                           </ul>
                       </td>
-                      <td class="project-state">
-                          <span class="badge badge-success">Pending</span>
-                      </td>
                       <td class="project-actions text-right">
                           <a class="btn btn-primary btn-sm" :href="'/subject/' + subject.subject_id">
-                              <i class="fas fa-folder">
+                              <i class="fas fa-play">
                               </i>
-                              View
+                              Start
                           </a>
                           <!-- <a class="btn btn-info btn-sm" href="#">
                               <i class="fas fa-pencil-alt">

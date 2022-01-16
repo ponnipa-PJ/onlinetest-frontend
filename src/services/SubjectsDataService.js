@@ -1,6 +1,9 @@
 import http from "../http-common";
 
 class SubjectsDataService {
+  create(data) {
+    return http.post("/subjects/create.php", data);
+  }
   getAll() {
     return http.get("/subjects/read.php");
   }

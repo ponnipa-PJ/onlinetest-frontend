@@ -13,6 +13,24 @@ export default new Router({
       component: () => import("./components/Home")
     },
     {
+      path: "/login",
+      alias: "/login",
+      name: "login",
+      component: () => import("./components/Login"),
+      meta:{
+        guest:true
+      }
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import("./components/Admin"),
+      meta: {
+        requiresAuth: true,
+        is_admin : true
+      }
+    },
+    {
       path: "/testpage",
       alias: "/testpage",
       name: "testpage",
@@ -49,7 +67,7 @@ export default new Router({
       component: () => import("./components/Parts")
     },
     {
-      path: "/tests/:id",
+      path: "/tests/:subject_id/:part_id",
       alias: "/tests",
       name: "tests",
       component: () => import("./components/Tests")

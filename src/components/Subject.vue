@@ -14,18 +14,19 @@
           v-for="question in part.questions"
           :key="question.id"
         >
-          <h4>{{ question.name }}</h4>
-          <div v-for="detail in question.details" :key="detail.answer_id">
-            <label v-bind:for="detail.answer_id">
-              <input
-                type="checkbox"
-                v-model="detail.checked"
-                v-bind:value="detail.answer_id"
-                v-bind:id="detail.answer_id"
-              />
-              <span> {{ detail.name }}</span>
-            </label>
-          </div>
+            <h4>{{ question.name }}</h4>
+            <div v-for="detail in question.details" :key="detail.answer_id">
+              <label v-bind:for="detail.answer_id">
+                <input
+                  type="checkbox"
+                  v-model="detail.checked"
+                  v-bind:value="detail.answer_id"
+                  v-bind:id="detail.answer_id"
+                />
+                <span> {{ detail.name }}</span>
+              </label>
+            </div>
+          
         </div>
       </div>
       <br />
@@ -58,6 +59,7 @@ export default {
         .then((response) => {
           this.subject = response.data[0].name;
           this.code = response.data[0].code;
+          console.log(response.data);
         })
         .catch((e) => {
           console.log(e);
@@ -113,7 +115,7 @@ export default {
     },
     created(data) {
       StuAnswersDataService.create(data);
-      this.alertSaveSuccess()
+      this.alertSaveSuccess();
       //     .then((response) => {
       //       console.log(response.data);
       //     })
