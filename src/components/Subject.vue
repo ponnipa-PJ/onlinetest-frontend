@@ -14,19 +14,18 @@
           v-for="question in part.questions"
           :key="question.id"
         >
-            <h4>{{ question.name }}</h4>
-            <div v-for="detail in question.details" :key="detail.answer_id">
-              <label v-bind:for="detail.answer_id">
-                <input
-                  type="checkbox"
-                  v-model="detail.checked"
-                  v-bind:value="detail.answer_id"
-                  v-bind:id="detail.answer_id"
-                />
-                <span> {{ detail.name }}</span>
-              </label>
-            </div>
-          
+          <h4>{{ question.name }}</h4>
+          <div v-for="detail in question.details" :key="detail.answer_id">
+            <label v-bind:for="detail.answer_id">
+              <input
+                type="checkbox"
+                v-model="detail.checked"
+                v-bind:value="detail.answer_id"
+                v-bind:id="detail.answer_id"
+              />
+              <span> {{ detail.name }}</span>
+            </label>
+          </div>
         </div>
       </div>
       <br />
@@ -66,46 +65,49 @@ export default {
         });
     },
     getQuestions(subject_id) {
-      AnswersDataService.getquestionsandanswers(subject_id)
+      AnswersDataService.getquestionsandanswers(subject_id, this.stu_id)
         .then((response) => {
           this.currentQuestions = response.data;
           // this.currentQuestions = this.currentQuestions.questions[Math.floor(Math.random() * this.currentQuestions.questions.length)];
-          // console.log(this.currentQuestions);
+          console.log(this.currentQuestions);
         })
         .catch((e) => {
           console.log(e);
         });
     },
-    submit() {
+    async submit() {
       for (let p = 0; p < this.currentQuestions.length; p++) {
         // console.log(this.currentQuestions[p]);
         for (let i = 0; i < this.currentQuestions[p].questions.length; i++) {
           // console.log(this.currentQuestions[p].questions[i].question_id);
-          this.delete(this.currentQuestions[p].questions[i].question_id);
+          await StuAnswersDataService.delete(
+            this.currentQuestions[p].questions[i].question_id
+          ,this.stu_id);
           for (
             let d = 0;
             d < this.currentQuestions[p].questions[i].details.length;
             d++
           ) {
-            // console.log(this.currentQuestions[p].questions[i].details[d]);
+          //   // console.log(this.currentQuestions[p].questions[i].details[d]);
             if (
-              this.currentQuestions[p].questions[i].details[d].checked == true
+              this.currentQuestions[p].questions[i].details[d].checked === true
             ) {
               var data = {
-                stu_id: 3,
+                stu_id: this.stu_id,
                 question_id:
                   this.currentQuestions[p].questions[i].details[d].question_id,
                 answer_id:
                   this.currentQuestions[p].questions[i].details[d].answer_id,
               };
-              this.created(data);
+              await StuAnswersDataService.create(data);
             }
           }
+          this.alertSaveSuccess();
         }
       }
     },
     delete(question_id) {
-      StuAnswersDataService.delete(question_id, 3);
+      StuAnswersDataService.delete(question_id, this.stu_id);
       // .then((response) => {
       //   console.log(response.data);
       // })
@@ -137,6 +139,7 @@ export default {
   },
   mounted() {
     this.part_id = 1;
+    this.stu_id = 3;
     this.subject_id = this.$route.params.id;
     this.getSubject(this.subject_id);
     this.getQuestions(this.subject_id);
