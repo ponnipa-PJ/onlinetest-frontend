@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="card card-info">
           <div class="card-header">
-             <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center">
               <h3 class="mr-auto card-title">Parts</h3>
               <div class="btn-group" role="group">
                 <button class="btn btn-success" @click="createdpart()">
@@ -33,21 +33,21 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(part, index) in currentParts"
-              :key="index">
+                        <tr v-for="(part, index) in currentParts" :key="index">
                           <td>{{ part.name }}</td>
-                          <td> {{part.score}} </td>
-                          <td v-if="part.status==0"> False </td>
-                          <td v-if="part.status==1"> True </td>
+                          <td>{{ part.score }}</td>
+                          <td v-if="part.status == 0">False</td>
+                          <td v-if="part.status == 1">True</td>
                           <td style="text-align: center">
-                            <a
+                            <router-link
+                              :to="{
+                                path: '/tests/' + subject_id + '/' + part.id,
+                              }"
                               class="btn btn-primary btn-sm"
-                              :href="'/tests/' + subject_id +'/'+ part.id"
                             >
                               <i class="fas fa-play"> </i>
                               Select
-                            </a>
+                            </router-link>
                           </td>
                         </tr>
                       </tbody>
@@ -62,8 +62,7 @@
           </div>
           <!-- /.card-body -->
           <div v-else>
-            <h5 style="text-align:center;">No recorded</h5>
-
+            <h5 style="text-align: center">No recorded</h5>
           </div>
         </div>
         <!-- /.card -->
@@ -118,28 +117,30 @@ export default {
             const status = this.$swal.getPopup().querySelector("#status").value;
             if (!score || !name) {
               this.$swal.showValidationMessage(`Please enter score and name`);
-            }
-            else{
-              var data ={score:score,name:name,status:status,subject_id:this.subject_id}
+            } else {
+              var data = {
+                score: score,
+                name: name,
+                status: status,
+                subject_id: this.subject_id,
+              };
               console.log(data);
-               PartsDataService.create(data)
-              .then(() => {
-                this.getParts(this.subject_id);
-                this.$swal.fire({
-                  icon: "success",
-                  title: "Save successfully",
+              PartsDataService.create(data)
+                .then(() => {
+                  this.getParts(this.subject_id);
+                  this.$swal.fire({
+                    icon: "success",
+                    title: "Save successfully",
+                  });
+                })
+                .catch((e) => {
+                  console.log(e);
                 });
-              })
-              .catch((e) => {
-                console.log(e);
-              })
             }
-            return {score: score, name: name }
+            return { score: score, name: name };
           },
         })
-        .then(() => {
-
-        })
+        .then(() => {});
     },
   },
   mounted() {

@@ -40,13 +40,13 @@
                           <td>{{ subject.code }}</td>
                           <td>{{ subject.name }}</td>
                           <td style="text-align: center">
-                            <a
+                            <router-link
+                              :to="{ path: '/parts/' + subject.id }"
                               class="btn btn-primary btn-sm"
-                              :href="'/parts/' + subject.id"
                             >
                               <i class="fas fa-play"> </i>
                               Select
-                            </a>
+                            </router-link>
                           </td>
                         </tr>
                       </tbody>
@@ -102,27 +102,24 @@ export default {
             const name = this.$swal.getPopup().querySelector("#name").value;
             if (!code || !name) {
               this.$swal.showValidationMessage(`Please enter code and name`);
-            }
-            else{
-              var data ={code:code,name:name}
-               SubjectsDataService.create(data)
-              .then(() => {
-                this.getSubjects();
-                this.$swal.fire({
-                  icon: "success",
-                  title: "Save successfully",
+            } else {
+              var data = { code: code, name: name };
+              SubjectsDataService.create(data)
+                .then(() => {
+                  this.getSubjects();
+                  this.$swal.fire({
+                    icon: "success",
+                    title: "Save successfully",
+                  });
+                })
+                .catch((e) => {
+                  console.log(e);
                 });
-              })
-              .catch((e) => {
-                console.log(e);
-              })
             }
-            return {code: code, name: name }
+            return { code: code, name: name };
           },
         })
-        .then(() => {
-
-        })
+        .then(() => {});
     },
   },
   mounted() {

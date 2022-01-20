@@ -16,11 +16,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item d-none d-sm-inline-block" v-for="(nav, index) in navs"
-        :key="index">
-              <router-link :to="{path:nav.routelink}" class="nav-link">{{nav.name}}</router-link>
-            </li>
-            <!-- <li class="nav-item d-none d-sm-inline-block">
+            <li class="nav-item d-none d-sm-inline-block">
               <router-link to="/home" class="nav-link">home</router-link>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
@@ -33,7 +29,7 @@
               <router-link to="/subjects" class="nav-link"
                 >Subjects</router-link
               >
-            </li> -->
+            </li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -217,7 +213,7 @@
               >
                 <i class="fas fa-expand-arrows-alt"></i>
               </a>
-            </li>
+            </li>            
           </ul>
         </div>
       </div>
@@ -234,25 +230,5 @@
 <script>
 export default {
   name: "app",
-  components: {},
-  data() {
-    return {
-      navs: [],
-    };
-  },
-  computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    },
-  },
-  methods: {},
-  mounted() {
-    if (!this.currentUser) {
-      this.navs = [{ routelink: "/login", name: "login" }];
-    }else{
-      this.navs = [{ routelink: "/home", name: "home" }];
-    }
-    console.log(this.nav);
-  },
 };
 </script>
