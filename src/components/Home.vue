@@ -1,13 +1,9 @@
 <template>
   <div>
     <h4>Home</h4>
-    {{currentUser[0].name}}
-    <li class="nav-item">
-      <a class="nav-link" href @click.prevent="logOut">LogOut
-      </a>
-    </li>
+    <h3 v-if="currentUser[0]">{{currentUser[0].name}}</h3>
     <!-- Default box -->
-    <div class="card">
+    <div class="card" v-if="currentUser[0].role ==1">
       <div class="card-header">
         <h3 class="card-title">Subjects List</h3>
 
@@ -77,20 +73,79 @@
       </div>
       <!-- /.card-body -->
     </div>
+        <div class="card" v-if="currentUser[0].role ==2">
+      <div class="card-header">
+        <h3 class="card-title">User List</h3>
+
+        <div class="card-tools">
+          <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button> -->
+        </div>
+      </div>
+      <div class="card-body p-0" v-if="currentUsers">
+        <table class="table table-striped projects">
+          <thead>
+            <tr>
+              <th style="width: 30%">รหัสนิสิต</th>
+              <th style="width: 20%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(user, index) in currentUsers"
+              :key="index"
+              :href="'/subject/' + user.id"
+            >
+              <td>
+                <a :href="'/subject/' + user.id">
+                  {{ user.name }}
+                </a>
+                <br />
+              </td>
+              <td class="project-actions text-right">
+                <router-link
+                  :to="{ path: '/subject/' + user.id }"
+                  class="btn btn-primary btn-sm"
+                >
+                  <i class="fas fa-eye"> </i>
+                  View</router-link
+                >
+                <!-- <a class="btn btn-info btn-sm" href="#">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
     <!-- /.card -->
   </div>
 </template>
 
 <script>
 import SubjectsDataService from "../services/SubjectsDataService";
+import UsersDataService from "../services/UserDataService.js";
 
 export default {
   name: "Home",
   components: {},
-  stu_id: 3,
   data() {
     return {
       currentSubjects: [],
+      currentUsers:[]
     };
   },
   computed: {
@@ -100,8 +155,7 @@ export default {
   },
   methods: {
     getSubjects() {
-      this.stu_id = 3;
-      SubjectsDataService.getsubjectbystuid(this.stu_id)
+      SubjectsDataService.getsubjectbystuid(this.currentUser[0].id)
         .then((response) => {
           this.currentSubjects = response.data;
         })
@@ -119,9 +173,19 @@ export default {
       this.$store.dispatch("auth/logout");
       this.$router.push("/login");
     },
+    getUsers() {
+      UsersDataService.getUsers()
+        .then((response) => {
+          this.currentUsers = response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
   mounted() {
     this.getSubjects();
+    this.getUsers();
     // localStorage.removeItem('user');
     if (!this.currentUser) {
       this.$router.push("/login");

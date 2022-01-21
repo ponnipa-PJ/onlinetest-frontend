@@ -31,12 +31,6 @@ export default new Router({
       component: () => import("./components/TestPage")
     },
     {
-      path: "/helloworld",
-      alias: "/helloworld",
-      name: "helloworld",
-      component: () => import("./components/HelloWorld")
-    },
-    {
       path: "/add",
       alias: "/add",
       name: "add",

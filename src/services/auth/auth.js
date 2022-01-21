@@ -4,7 +4,6 @@ class AuthDataService {
     login(data) {
         return http.post("/login/readuser.php", data)
         .then(response => {
-          console.log(response.data);
           if (response.data) {
             localStorage.setItem('user', JSON.stringify(response.data));
           } 

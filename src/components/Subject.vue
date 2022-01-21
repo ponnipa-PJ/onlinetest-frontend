@@ -44,14 +44,16 @@ export default {
   components: {},
   data() {
     return {
-      subject_id: 0,
-      part_id: 0,
       subject: "",
       code: "",
       currentQuestions: [],
     };
   },
-  computed: {},
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+  },
   methods: {
     getSubject(subject_id) {
       SubjectsDataService.getsubjectbyid(subject_id)
@@ -65,7 +67,7 @@ export default {
         });
     },
     getQuestions(subject_id) {
-      AnswersDataService.getquestionsandanswers(subject_id, this.stu_id)
+      AnswersDataService.getquestionsandanswers(subject_id, this.currentUser[0].id)
         .then((response) => {
           this.currentQuestions = response.data;
           // this.currentQuestions = this.currentQuestions.questions[Math.floor(Math.random() * this.currentQuestions.questions.length)];
@@ -82,7 +84,7 @@ export default {
           // console.log(this.currentQuestions[p].questions[i].question_id);
           await StuAnswersDataService.delete(
             this.currentQuestions[p].questions[i].question_id
-          ,this.stu_id);
+          ,this.currentUser[0].id);
           for (
             let d = 0;
             d < this.currentQuestions[p].questions[i].details.length;
@@ -93,7 +95,7 @@ export default {
               this.currentQuestions[p].questions[i].details[d].checked === true
             ) {
               var data = {
-                stu_id: this.stu_id,
+                stu_id: this.currentUser[0].id,
                 question_id:
                   this.currentQuestions[p].questions[i].details[d].question_id,
                 answer_id:
@@ -105,15 +107,6 @@ export default {
           this.alertSaveSuccess();
         }
       }
-    },
-    delete(question_id) {
-      StuAnswersDataService.delete(question_id, this.stu_id);
-      // .then((response) => {
-      //   console.log(response.data);
-      // })
-      // .catch((e) => {
-      //   console.log(e);
-      // });
     },
     created(data) {
       StuAnswersDataService.create(data);
@@ -138,8 +131,6 @@ export default {
     },
   },
   mounted() {
-    this.part_id = 1;
-    this.stu_id = 3;
     this.subject_id = this.$route.params.id;
     this.getSubject(this.subject_id);
     this.getQuestions(this.subject_id);

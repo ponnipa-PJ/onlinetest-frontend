@@ -16,43 +16,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item d-none d-sm-inline-block" v-for="(nav, index) in navs"
+            <!-- <li class="nav-item d-none d-sm-inline-block" v-for="(nav, index) in navs"
         :key="index">
               <router-link :to="{path:nav.routelink}" class="nav-link">{{nav.name}}</router-link>
-            </li>
-            <!-- <li class="nav-item d-none d-sm-inline-block">
+            </li> -->
+            <li v-if="showUserBoard" class="nav-item d-none d-sm-inline-block">
               <router-link to="/home" class="nav-link">home</router-link>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-              <router-link to="/testpage" class="nav-link">test</router-link>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
+            <li v-if="showAdminBoard" class="nav-item d-none d-sm-inline-block">
               <router-link to="/add" class="nav-link">Add</router-link>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
+            <li v-if="showAdminBoard" class="nav-item d-none d-sm-inline-block">
               <router-link to="/subjects" class="nav-link"
                 >Subjects</router-link
               >
-            </li> -->
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
             </li>
           </ul>
           <!-- Right navbar links -->
@@ -218,6 +195,15 @@
                 <i class="fas fa-expand-arrows-alt"></i>
               </a>
             </li>
+            <li class="nav-item" v-if="currentUser">
+              <a
+                class="nav-link"
+                href @click.prevent="logOut"
+                role="button"
+              >
+                <i class="fas fa-sign-out-alt"></i>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -237,22 +223,41 @@ export default {
   components: {},
   data() {
     return {
-      navs: [],
     };
   },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     },
+    showAdminBoard() {
+      if (this.currentUser) {
+        if (this.currentUser[0].role == 2) {
+          return true;
+        } else {
+          return false;
+        }
+      }else{
+        return false;
+      }
+    },
+    showUserBoard() {
+      if (this.currentUser) {
+        if (this.currentUser[0].role == 1) {
+          return true;
+        } else {
+          return false;
+        }
+      }else{
+        return false;
+      }
+    },
   },
-  methods: {},
-  mounted() {
-    if (!this.currentUser) {
-      this.navs = [{ routelink: "/login", name: "login" }];
-    }else{
-      this.navs = [{ routelink: "/home", name: "home" }];
-    }
-    console.log(this.nav);
+  methods: {
+    logOut() {
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
+    },
   },
+  mounted() {},
 };
 </script>
