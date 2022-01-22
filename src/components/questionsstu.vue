@@ -9,6 +9,7 @@
       >
         <h3>Part {{ index + 1 }} {{ part.name }}</h3>
         <h4 style="text-align: right">จำนวน {{ part.score }} คะแนน</h4>
+        <h4 style="text-align: right">  คะแนนที่ได้ {{ part.sumscore }} คะแนน</h4>
         <div
           class="list-group-item"
           v-for="(question, indexques) in part.questions"
@@ -29,7 +30,7 @@
               />
               <span> {{ detail.name }}</span>
             </label>
-          </div>          
+          </div>         
         </div>
       </div>
       <br />
