@@ -60,5 +60,17 @@ export default new Router({
       name: "tests",
       component: () => import("./components/Tests")
     },
+    {
+      path: "/subjectstu/:id",
+      alias: "/subjectstu",
+      name: "subjectstu",
+      component: () => import("./components/SubjectsStu")
+    },
+    {
+      path: "/questionsstu/:stu_id/:subject_id",
+      alias: "/questionsstu",
+      name: "questionsstu",
+      component: () => import("./components/questionsstu")
+    },
   ]
 });
