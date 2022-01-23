@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import PartsDataService from "../services/PartsDataService";
+import PartsDataService from "../../services/PartsDataService";
 
 export default {
   name: "testpage",

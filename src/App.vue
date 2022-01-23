@@ -20,7 +20,7 @@
         :key="index">
               <router-link :to="{path:nav.routelink}" class="nav-link">{{nav.name}}</router-link>
             </li> -->
-            <li v-if="showUserBoard" class="nav-item d-none d-sm-inline-block">
+            <li v-if="currentUser" class="nav-item d-none d-sm-inline-block">
               <router-link to="/home" class="nav-link">home</router-link>
             </li>
             <li v-if="showAdminBoard" class="nav-item d-none d-sm-inline-block">

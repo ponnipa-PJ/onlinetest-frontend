@@ -80,11 +80,11 @@
 </template>
 
 <script>
-import SubjectsDataService from "../services/SubjectsDataService";
-import PartsDataService from "../services/PartsDataService";
-import QuestionsDataService from "../services/QuestionsDataService";
-import AnswersDataService from "../services/AnswersDataService";
-import QuestionsAnswersDataService from "../services/QuestionsAnswersDataService";
+import SubjectsDataService from "../../services/SubjectsDataService";
+import PartsDataService from "../../services/PartsDataService";
+import QuestionsDataService from "../../services/QuestionsDataService";
+import AnswersDataService from "../../services/AnswersDataService";
+import QuestionsAnswersDataService from "../../services/QuestionsAnswersDataService";
 
 export default {
   name: "testpage",

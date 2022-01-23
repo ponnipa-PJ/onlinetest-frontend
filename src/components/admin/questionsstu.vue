@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import SubjectsDataService from "../services/SubjectsDataService";
-import AnswersDataService from "../services/AnswersDataService";
+import SubjectsDataService from "../../services/SubjectsDataService";
+import AnswersDataService from "../../services/AnswersDataService";
 
 export default {
   name: "testpage",

@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import SubjectsDataService from "../services/SubjectsDataService";
+import SubjectsDataService from "../../services/SubjectsDataService";
 
 export default {
   name: "testpage",

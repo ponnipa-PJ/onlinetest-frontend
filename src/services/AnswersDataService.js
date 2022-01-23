@@ -10,6 +10,9 @@ class AnswersDataService {
   getquestionsandanswersadmin(subject_id,part_id) {
     return http.get(`/answers/getquestionandchoiceadmin.php?subject_id=${subject_id}&part_id=${part_id}`);
   }
+  update(data) {
+    return http.put("/answers/update.php", data);
+  }
 }
 
 export default new AnswersDataService();

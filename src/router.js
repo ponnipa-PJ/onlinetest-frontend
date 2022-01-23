@@ -20,11 +20,6 @@ export default new Router({
       component: Home
     },
     {
-      path: '/admin',
-      name: 'admin',
-      component: () => import("./components/Admin"),
-    },
-    {
       path: "/testpage",
       alias: "/testpage",
       name: "testpage",
@@ -34,13 +29,13 @@ export default new Router({
       path: "/add",
       alias: "/add",
       name: "add",
-      component: () => import("./components/AddQuestion")
+      component: () => import("./components/admin/AddQuestion")
     },
     {
       path: "/subjects",
       alias: "/subjects",
       name: "subjects",
-      component: () => import("./components/Subjects")
+      component: () => import("./components/admin/Subjects")
     },
     {
       path: "/subject/:id",
@@ -52,25 +47,31 @@ export default new Router({
       path: "/parts/:id",
       alias: "/parts",
       name: "parts",
-      component: () => import("./components/Parts")
+      component: () => import("./components/admin/Parts")
     },
     {
       path: "/tests/:subject_id/:part_id",
       alias: "/tests",
       name: "tests",
-      component: () => import("./components/Tests")
+      component: () => import("./components/admin/Tests")
     },
     {
       path: "/subjectstu/:id",
       alias: "/subjectstu",
       name: "subjectstu",
-      component: () => import("./components/SubjectsStu")
+      component: () => import("./components/admin/SubjectsStu")
     },
     {
       path: "/questionsstu/:stu_id/:subject_id",
       alias: "/questionsstu",
       name: "questionsstu",
-      component: () => import("./components/questionsstu")
+      component: () => import("./components/admin/questionsstu")
+    },
+    {
+      path: "/editques/:question_id/:subject_id/:part_id",
+      alias: "/editques",
+      name: "editques",
+      component: () => import("./components/admin/EditQuestion.vue")
     },
   ]
 });

@@ -41,7 +41,7 @@
                     <img
                       alt="Avatar"
                       class="table-avatar"
-                      src="../dist/img/avatar3.png"
+                      src="../../dist/img/avatar3.png"
                     />
                   </li>
                 </ul>
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import SubjectsDataService from "../services/SubjectsDataService";
+import SubjectsDataService from "../../services/SubjectsDataService";
 
 export default {
   name: "Home",
